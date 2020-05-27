@@ -3,7 +3,8 @@
 [![Forks][forks-shield]][forks-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![NuGet Package version](https://img.shields.io/nuget/v/OpenScraping.svg?style=flat-square)](https://www.nuget.org/packages/HtmlAgilityPack/1.11.23)
+[![HTML Agility Pack][agility-pack-shield]][agility-pack-url]
+[![Framework][framework-shield]][framework-url]
 
 # Scraping-Toolkit
 
@@ -44,5 +45,7 @@ E-mail: leandroklaiber@gmail.com<br/>
 [issues-url]: https://github.com/otavioalfenas/Scraping-Toolkit/issues
 [license-shield]: https://img.shields.io/github/license/otavioalfenas/Scraping-Toolkit.svg?style=flat-square
 [license-url]: https://github.com/otavioalfenas/Scraping-Toolkit/blob/master/LICENSE.txt
-[linkedin-url]: https://br.linkedin.com/in/otavio-alfenas
-[linkedin-url2]: https://br.linkedin.com/in/leandroklaiber
+[agility-pack-shield]: https://img.shields.io/badge/HtmlAgilityPack-v1.11.23-blue
+[agility-pack-url]: https://www.nuget.org/packages/HtmlAgilityPack/1.11.23
+[framework-shield]: https://img.shields.io/badge/.net%20Framework-v4.6.1-green
+[framework-url]: https://www.microsoft.com/pt-BR/download/details.aspx?id=49982 
