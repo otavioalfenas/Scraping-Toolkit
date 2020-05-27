@@ -11,6 +11,14 @@
 ## Visão Geral 
 O Scraping-Toolkit é uma estrutura rápida de captura de informações de paginas web, usado para rastrear sites e extrair ou inserir dados em suas páginas. Ele pode ser usado para uma ampla variedade de finalidades, desde a mineração de dados até monitoramento e testes automatizados.
 
+## Pré-Requisito
+
+TEXTO EXPLICANDO
+
+```PowerShell
+Install-Package Scraping -Version 1.3.0
+```
+
 ## Utilização
 
 
