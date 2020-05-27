@@ -3,8 +3,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-[![LinkedIn][linkedin-shield2]][linkedin-url2]
+[![NuGet Package version](https://img.shields.io/nuget/v/OpenScraping.svg?style=flat-square)](https://www.nuget.org/packages/HtmlAgilityPack/1.11.23)
 
 # Scraping-Toolkit
 
@@ -34,8 +33,8 @@ Distribuído sob a licença GNU. Veja o arquivo `LICENSE` para mais informaçõe
 Otavio Alfenas: [@otavioalfenas](https://br.linkedin.com/in/otavio-alfenas)<br/>
 E-mail: otavioalfenas@hotmail.com<br/>
 
-Leandro Klaiber: [@otavioalfenas](https://br.linkedin.com/in/leandroklaiber)<br/>
-E-mail2: leandroklaiber@gmail.com<br/>
+Leandro Klaiber: [@leandroklaiber](https://br.linkedin.com/in/leandroklaiber)<br/>
+E-mail: leandroklaiber@gmail.com<br/>
 
 [contributors-shield]: https://img.shields.io/github/contributors/otavioalfenas/Scraping-Toolkit.svg?style=flat-square
 [contributors-url]: https://github.com/otavioalfenas/Scraping-Toolkit/graphs/contributors
@@ -45,7 +44,5 @@ E-mail2: leandroklaiber@gmail.com<br/>
 [issues-url]: https://github.com/otavioalfenas/Scraping-Toolkit/issues
 [license-shield]: https://img.shields.io/github/license/otavioalfenas/Scraping-Toolkit.svg?style=flat-square
 [license-url]: https://github.com/otavioalfenas/Scraping-Toolkit/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
-[linkedin-shield2]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://br.linkedin.com/in/otavio-alfenas
 [linkedin-url2]: https://br.linkedin.com/in/leandroklaiber
