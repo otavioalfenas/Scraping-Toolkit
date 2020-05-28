@@ -116,6 +116,12 @@ E-mail: otavioalfenas@hotmail.com<br/>
 Leandro Klaiber: [@leandroklaiber](https://br.linkedin.com/in/leandroklaiber)<br/>
 E-mail: leandroklaiber@gmail.com<br/>
 
+## Agradecimentos
+
+Eduardo Chen - https://www.linkedin.com/in/EduardoChen <br/>
+Edgard Yamashita - https://www.linkedin.com/in/eguilherme
+
+
 [contributors-shield]: https://img.shields.io/github/contributors/otavioalfenas/Scraping-Toolkit.svg?style=flat-square
 [contributors-url]: https://github.com/otavioalfenas/Scraping-Toolkit/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/otavioalfenas/Scraping-Toolkit.svg?style=flat-square
