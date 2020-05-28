@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+    <metadata>
+    <id>Scraping</id>
+    <version>1.4.0.0</version>
+    <title>Scraping Toolkit</title>
+    <authors>Otavio Alfenas;Leandro Klaiber</authors>
+    <owners>Otavio Alfenas</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">GPL-3.0-only</license>
+    <projectUrl>https://github.com/otavioalfenas/Scraping-Toolkit</projectUrl>
+    <description>High productivity facilitator for scraping web pages</description>
+    <iconUrl>http://redgoat.com.br/brasao.png</iconUrl>
+	<language>English</language>
+	<copyright>Copyright 2020</copyright>
+    <tags>Scraping C# Crawler Toolkit Web Robot</tags>    
+    <dependencies>
+        <dependency id="HtmlAgilityPack" version="1.11.18" />
+    </dependencies>
+  </metadata>
+</package>
