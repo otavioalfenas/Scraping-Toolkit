@@ -8,26 +8,25 @@
 
 # Scraping-Toolkit
 
-*Read this in other language: [English](README.md), [Portuguese](README.ptbr.md)*
+*Você pode ler também em outro idioma: [English](README.md), [Portuguese](README.ptbr.md)*
 
-## Overview
-The Scrapping-Toolkit is a fast-based structure to capture information within web pages, used to track websites and even extract or insert data on the web pages. It can be widely used to reach to any goal from data-mining to web site monitoring and automated tests.
+## Visão Geral 
+O Scraping-Toolkit é uma estrutura rápida de captura de informações de paginas web, usado para rastrear sites e extrair ou inserir dados em suas páginas. Ele pode ser usado para uma ampla variedade de finalidades, desde a mineração de dados até monitoramento e testes automatizados.
 
-## Prerequisites
-[![HTML Agility Pack][agility-pack-shield]][agility-pack-url] or superior
+## Pré-Requisitos
+[![HTML Agility Pack][agility-pack-shield]][agility-pack-url] ou superior
 
 [![Framework][framework-shield]][framework-url]
 
-## How to use
+## Utilização
 
-To install the component you can use the "Install" command or access https://www.nuget.org/packages/Scraping/
+Para instalar o componente você pode usar o comando Install ou acessar https://www.nuget.org/packages/Scraping/
 
 ```PowerShell
 Install-Package Scraping
 ```
 
-To make it use the "load", you must inform the url (FromUrl) and one usage possibility is to let the tool try to identify the screen components.
-
+Para fazer utilizar o load você deve informar a url (FromUrl) e uma das possibilidade é deixar que a ferramenta tente identificar os componentes da tela.
 ```C#
 public void LoadComponents()
 {
@@ -38,8 +37,8 @@ public void LoadComponents()
 }
 ```
 
-Inside the tool, there are also many extensions that make the parse work easier.
 
+Dentro da ferramenta existe também diversas extensões que facilitam o trabalho do parse.
 ```C#
 public void AllTags()
 {
@@ -52,12 +51,10 @@ public void AllTags()
 }
 ```
 
-## Examples
-
-Below there is an example of all the methods inside the Load. 
-The folder "test" contains many examples on Load usage and extensions.
-If any doubt or suggestion comes up, you may contact us or open an issue so we can improve the tool together.
-
+## Exemplos
+Abaixo tem um exemplo de todos os métodos do Load.
+Dentro da pasta test contém diversos exemplos do Load e extentions.
+Se tiver alguma dúvida ou sugestão pode entrar em contato conosco ou abrir uma Issue para melhorarmos em conjunto esta ferramenta.
 ```C#
 public void LoagPageFull()
 {
@@ -97,22 +94,23 @@ private void Ret_OnLoad(object sender, RequestHttpEventArgs e)
 }
 ```
 
-## Contribution
 
-Below you can contribute to the project as much as you want. Any advice,suggestion or adjust will always be welcomed. 
-Here is a step-by-step guide on how to proceed to upload your update.
+## Contribuição
+
+Você pode contribuir para o com a projeto sempre que quiser, qualquer dica sugestão ou ajuste serão sempre bem vindos.
+Abaixo um passo a passo de como deve proceder para subir sua atualização:
 
 1. Fork the Project;
-2. Create your Feature Branch (`git checkout -b branch/Example`);
-3. Commit your updates (`git commit -m 'Message of any updates that were made to the program'`);
-4. Send to your Branch (`git push origin branch/Exemple`);
-5. Open a Pull Request;
+2. Crie sua Feature Branch (`git checkout -b branch/Exemplo`);
+3. Commit suas alterações (`git commit -m 'Inserir mensagem da alteração efetuada'`);
+4. Envie para a sua Branch (`git push origin branch/Exemplo`);
+5. Abra um Pull Request;
 
-## Licences
+## Licenças
 
-Distributed over GNU Licence. See the file `LICENSE` for more information.
+Distribuído sob a licença GNU. Veja o arquivo `LICENSE` para mais informações.
 
-## Contact
+## Contato
 
 Otavio Alfenas: [@otavioalfenas](https://br.linkedin.com/in/otavio-alfenas)<br/>
 E-mail: otavioalfenas@hotmail.com<br/>
@@ -120,7 +118,7 @@ E-mail: otavioalfenas@hotmail.com<br/>
 Leandro Klaiber: [@leandroklaiber](https://br.linkedin.com/in/leandroklaiber)<br/>
 E-mail: leandroklaiber@gmail.com<br/>
 
-## Acknowledgement
+## Agradecimentos
 
 Eduardo Chen - https://www.linkedin.com/in/EduardoChen <br/>
 Edgard Yamashita - https://www.linkedin.com/in/eguilherme
