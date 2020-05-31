@@ -5,9 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using static Scraping.Enums;
+using static Scraping.Web.Enums;
 
-namespace Scraping
+namespace Scraping.Web
 {
     public static class Extentions
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Scraping
+namespace Scraping.Web
 {
     public class Enums
     {

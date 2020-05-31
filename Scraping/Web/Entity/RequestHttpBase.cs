@@ -5,9 +5,9 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using static Scraping.Enums;
+using static Scraping.Web.Enums;
 
-namespace Scraping
+namespace Scraping.Web
 {
     public abstract class RequestHttpBase
     {
