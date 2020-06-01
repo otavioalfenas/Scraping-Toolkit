@@ -186,63 +186,6 @@ namespace Scraping.Web
             StartSSLConfig();
         }
 
-        /// <summary>
-        /// Carrega o viewState da pagina
-        /// </summary>
-        /// <param name="html">Html da pagina onde o metodo ira busca o viewstate</param>
-        /// <returns>String</returns>
-        public string LoadViewState(string html)
-        {
-            if (!html.Contains("__VIEWSTATE"))
-                return string.Empty;
-            string str1 = html.Substring(html.IndexOf("__VIEWSTATE") + 20);
-            string str2 = str1.Substring(str1.ToLower().IndexOf("value") + 7);
-            return str2.Substring(0, str2.IndexOf('"'));
-        }
-
-        /// <summary>
-        /// Carrega o EventValidantion da pagina
-        /// </summary>
-        /// <param name="html">Html da pagina onde o metodo ira busca o eventvalidation</param>
-        /// <returns></returns>
-        public string LoadEventValidation(string html)
-        {
-            if (!html.Contains("__EVENTVALIDATION"))
-                return string.Empty;
-            string str1 = html.Substring(html.IndexOf("__EVENTVALIDATION") + 17);
-            string str2 = str1.Substring(str1.ToLower().IndexOf("value") + 7);
-            return str2.Substring(0, str2.IndexOf('"'));
-        }
-
-        /// <summary>
-        /// Carrega os parametros do asp.net
-        /// </summary>
-        /// <param name="htmlPagina">Html da pagina</param>
-        /// <returns>NameValueCollection</returns>
-        public NameValueCollection LoadParametersASPNET(string htmlPagina)
-        {
-            return this.LoadParametersASPNET(htmlPagina, string.Empty);
-        }
-
-        /// <summary>
-        ///  Carrega os parametros do asp.net com eventTarget 
-        /// </summary>
-        /// <param name="htmlPagina">Html da plagina</param>
-        /// <param name="eventTarget">Event Target</param>
-        /// <returns>NameValueCollection</returns>
-        public NameValueCollection LoadParametersASPNET(string htmlPagina, string eventTarget)
-        {
-            NameValueCollection nameValueCollection = new NameValueCollection();
-            nameValueCollection.Add("__EVENTTARGET", eventTarget);
-            nameValueCollection.Add("__EVENTARGUMENT", string.Empty);
-            nameValueCollection.Add("__VIEWSTATE", this.LoadViewState(htmlPagina));
-            if (htmlPagina.Contains("__EVENTVALIDATION"))
-                nameValueCollection.Add("__EVENTVALIDATION", this.LoadEventValidation(htmlPagina));
-            if (htmlPagina.Contains("__VIEWSTATEENCRYPTED"))
-                nameValueCollection.Add("__VIEWSTATEENCRYPTED", string.Empty);
-            return nameValueCollection;
-        }
-
         public Dictionary<string, string> Headers { get; set; }
 
         /// <summary>

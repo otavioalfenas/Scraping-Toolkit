@@ -1,5 +1,6 @@
 ﻿using HtmlAgilityPack;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -402,5 +403,63 @@ namespace Scraping.Web
                     return null;
             }
         }
+
+        /// <summary>
+        /// Carrega o viewState da pagina
+        /// </summary>
+        /// <param name="html">Html da pagina onde o metodo ira busca o viewstate</param>
+        /// <returns>String</returns>
+        public static string LoadViewState(this string html)
+        {
+            if (!html.Contains("__VIEWSTATE"))
+                return string.Empty;
+            string str1 = html.Substring(html.IndexOf("__VIEWSTATE") + 20);
+            string str2 = str1.Substring(str1.ToLower().IndexOf("value") + 7);
+            return str2.Substring(0, str2.IndexOf('"'));
+        }
+
+        /// <summary>
+        /// Carrega o EventValidantion da pagina
+        /// </summary>
+        /// <param name="html">Html da pagina onde o metodo ira busca o eventvalidation</param>
+        /// <returns></returns>
+        public static string LoadEventValidation(this string html)
+        {
+            if (!html.Contains("__EVENTVALIDATION"))
+                return string.Empty;
+            string str1 = html.Substring(html.IndexOf("__EVENTVALIDATION") + 17);
+            string str2 = str1.Substring(str1.ToLower().IndexOf("value") + 7);
+            return str2.Substring(0, str2.IndexOf('"'));
+        }
+
+        /// <summary>
+        /// Carrega os parametros do asp.net
+        /// </summary>
+        /// <param name="htmlPagina">Html da pagina</param>
+        /// <returns>NameValueCollection</returns>
+        public static NameValueCollection LoadParametersASPNET(this string htmlPagina)
+        {
+            return htmlPagina.LoadParametersASPNET(string.Empty);
+        }
+
+        /// <summary>
+        ///  Carrega os parametros do asp.net com eventTarget 
+        /// </summary>
+        /// <param name="htmlPagina">Html da plagina</param>
+        /// <param name="eventTarget">Event Target</param>
+        /// <returns>NameValueCollection</returns>
+        public static NameValueCollection LoadParametersASPNET(this string htmlPagina, string eventTarget)
+        {
+            NameValueCollection nameValueCollection = new NameValueCollection();
+            nameValueCollection.Add("__EVENTTARGET", eventTarget);
+            nameValueCollection.Add("__EVENTARGUMENT", string.Empty);
+            nameValueCollection.Add("__VIEWSTATE", htmlPagina.LoadViewState());
+            if (htmlPagina.Contains("__EVENTVALIDATION"))
+                nameValueCollection.Add("__EVENTVALIDATION", htmlPagina.LoadEventValidation());
+            if (htmlPagina.Contains("__VIEWSTATEENCRYPTED"))
+                nameValueCollection.Add("__VIEWSTATEENCRYPTED", string.Empty);
+            return nameValueCollection;
+        }
+
     }
 }
