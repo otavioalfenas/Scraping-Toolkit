@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
-using static Scraping.Enums;
+using static Scraping.Web.Enums;
 
-namespace Scraping
+namespace Scraping.Web
 {
     public class HttpRequestFluent
     {
         private HttpRequest request = new HttpRequest(false);
-        public event EventHandler<RequestHttpEventArgs> OnLoad = null;
+        
+        public event EventHandler<RequestHttpEventArgs> OnLoad
+        {
+            add { request.OnLoad += value; }
+            remove { request.OnLoad -= value; }
+        }
 
         public HttpRequestFluent(bool sslIgnore)
         {
@@ -167,11 +173,17 @@ namespace Scraping
 
         public ResponseHttp Load()
         {
+            lock(this.request.SyncRoot)
+            {
+                return this.LoadAsync().Result;
+            }
+        }
+
+        public async Task<ResponseHttp> LoadAsync()
+        {
             if (string.IsNullOrWhiteSpace(request.Url))
                 throw new CustomException("The Url field is blank or invalid.");
-
-            request.OnLoad += OnLoad;
-            return request.LoadPage(request.Url);
+            return await request.LoadPageAsync(request.Url);
         }
     }
 }

@@ -8,9 +8,10 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 
-namespace Scraping
+namespace Scraping.Web
 {
     public class HttpRequest : RequestHttpBase
     {
@@ -19,26 +20,25 @@ namespace Scraping
 
         public HttpRequest(bool sslIgnore) : base(sslIgnore)
         {
-            if (sslIgnore)
-            {
-                if(ServicePointManager.ServerCertificateValidationCallback==null)
-                    ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(ByPassAllCertificateStuff);
+            if (!sslIgnore)
+                return;
 
-                ServicePointManager.Expect100Continue = true;
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-            }
+            if(ServicePointManager.ServerCertificateValidationCallback==null)
+                ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(ByPassAllCertificateStuff);
+
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
         }
         private static bool ByPassAllCertificateStuff(object sender, X509Certificate cert, X509Chain chain, SslPolicyErrors error)
         {
             return true;
         }
 
-        internal ResponseHttp LoadPage(string url)
+        internal async Task<ResponseHttp> LoadPageAsync(string url)
         {
             responseHttp = new ResponseHttp();
             this.Url = url;
-            lock (SyncRoot)
-            {
+       
                 try
                 {
                     HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(Url);
@@ -95,7 +95,7 @@ namespace Scraping
 
                     string html;
                     string responseHeader;
-                    using (HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse())
+                    using (HttpWebResponse response =(HttpWebResponse)await httpWebRequest.GetResponseAsync())
                     {
                         responseHttp.StatusCode = response.StatusCode;
 
@@ -105,27 +105,8 @@ namespace Scraping
                                 html = string.Format("data:{0};base64,{1}", response.ContentType, Convert.ToBase64String(responseStream.ReadAllBytes()));
                         }
                         else
-                        {
-                            using (Stream responseStream = response.GetResponseStream())
-                            {
-                                Stream stream = null;
-                                try
-                                {
-                                    stream = string.IsNullOrEmpty(response.ContentEncoding) || !response.ContentEncoding.ToLower().Contains("gzip") ? (string.IsNullOrEmpty(response.ContentEncoding) || !response.ContentEncoding.ToLower().Contains("deflate") ? responseStream : new DeflateStream(responseStream, CompressionMode.Decompress)) : new GZipStream(responseStream, CompressionMode.Decompress);
-                                    using (StreamReader streamReader = new StreamReader(stream, DefaultEncoding))
-                                    {
-                                        html = streamReader.ReadToEnd();
-                                        streamReader.Close();
-                                    }
-                                    responseStream.Close();
-                                }
-                                finally
-                                {
-                                    if (stream != null)
-                                        stream.Dispose();
-                                }
-                            }
-                        }
+                            html = GetResponseHtml(response);
+
                         AddCookies(response.Cookies, responseHttp);
                         AddInternalCookie(response, responseHttp);
                         responseHeader = response.GetResponseHeader("Location");
@@ -133,7 +114,6 @@ namespace Scraping
                         responseHttp.Method = response.Method;
                         responseHttp.Server = response.Server;
                         responseHttp.HeadersAdded = this.Headers;
-                        response.Close();
                     }
 
                     if (MaxRedirect > 0)
@@ -142,7 +122,7 @@ namespace Scraping
                         {
                             MaxRedirect--;
                             this.Referer = url;
-                            return LoadPage(responseHeader);
+                            return await LoadPageAsync(responseHeader);
                         }
                     }
                     responseHttp.HtmlPage = html;
@@ -155,6 +135,13 @@ namespace Scraping
                 }
                 catch (WebException ex)
                 {
+                    using (var stream = ex.Response.GetResponseStream())
+                    {
+                        using (var reader = new StreamReader(stream))
+                        {
+                            responseHttp.HtmlPage = reader.ReadToEnd();
+                        }
+                    }
                     responseHttp.StatusCode = HttpStatusCode.InternalServerError;
                 }
                 //catch (Exception ex)
@@ -163,15 +150,35 @@ namespace Scraping
                 //}
 
                 return responseHttp;
+        }
+
+        private string GetResponseHtml(HttpWebResponse response)
+        {
+            using (Stream responseStream = response.GetResponseStream())
+            {
+                Stream stream = null;
+                try
+                {
+                    stream = string.IsNullOrEmpty(response.ContentEncoding) || !response.ContentEncoding.ToLower().Contains("gzip") ? (string.IsNullOrEmpty(response.ContentEncoding) || !response.ContentEncoding.ToLower().Contains("deflate") ? responseStream : new DeflateStream(responseStream, CompressionMode.Decompress)) : new GZipStream(responseStream, CompressionMode.Decompress);
+                    using (StreamReader streamReader = new StreamReader(stream, DefaultEncoding))
+                    {
+                        return streamReader.ReadToEnd();
+                    }
+                }
+                finally
+                {
+                    if (stream != null)
+                        stream.Dispose();
+                }
             }
         }
 
-        public ResponseHttp LoadPage(string url, NameValueCollection parameter)
+        public async Task<ResponseHttp> LoadPageAsync(string url, NameValueCollection parameter)
         {
-            return this.LoadPage(url, parameter, string.Empty);
+            return await this.LoadPageAsync(url, parameter, string.Empty);
         }
 
-        public ResponseHttp LoadPage(string url, NameValueCollection parameter, string referer)
+        public async Task<ResponseHttp> LoadPageAsync(string url, NameValueCollection parameter, string referer)
         {
             if (parameter != null)
             {
@@ -185,7 +192,7 @@ namespace Scraping
                 this.Parameters = param;
             }
             this.Referer = referer;
-            return this.LoadPage(url);
+            return await this.LoadPageAsync(url);
         }
 
         private void LoadTypes(String html, ResponseHttp responseHttp)

@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Scraping;
+using Scraping.Web;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Test
 {
@@ -22,7 +23,7 @@ namespace Test
         {
             var ret = new HttpRequestFluent(true)
                 .FromUrl("https://github.com/otavioalfenas/Scraping-Toolkit")
-                .TryGetComponents(Scraping.Enums.TypeComponent.LinkButton| Scraping.Enums.TypeComponent.InputHidden)
+                .TryGetComponents(Enums.TypeComponent.LinkButton| Enums.TypeComponent.InputHidden)
                 .Load();
 
             Assert.IsTrue(ret.Components.LinkButtons.Count > 0 && ret.Components.InputHidden.Count > 0);
@@ -33,7 +34,7 @@ namespace Test
         {
             var ret = new HttpRequestFluent(true)
                 .FromUrl("https://github.com/otavioalfenas/Scraping-Toolkit")
-                .TryGetComponents(Scraping.Enums.TypeComponent.LinkButton | Scraping.Enums.TypeComponent.InputHidden)
+                .TryGetComponents(Enums.TypeComponent.LinkButton | Enums.TypeComponent.InputHidden)
                 .Load();
 
             var itens = ret.HtmlPage.GetByClassNameEquals("edge-item-fix");
@@ -47,7 +48,7 @@ namespace Test
         {
             var ret = new HttpRequestFluent(true)
                 .FromUrl("https://github.com/otavioalfenas/RespireFundo/graphs/traffic")
-                .TryGetComponents(Scraping.Enums.TypeComponent.LinkButton | Scraping.Enums.TypeComponent.InputHidden)
+                .TryGetComponents(Enums.TypeComponent.LinkButton | Enums.TypeComponent.InputHidden)
                 .WithAutoRedirect(true)
                 .Load();
 
@@ -59,7 +60,7 @@ namespace Test
         {
             var ret = new HttpRequestFluent(true)
                 .FromUrl("https://github.com/otavioalfenas/RespireFundo/graphs/traffic")
-                .TryGetComponents(Scraping.Enums.TypeComponent.LinkButton | Scraping.Enums.TypeComponent.InputHidden)
+                .TryGetComponents(Enums.TypeComponent.LinkButton | Enums.TypeComponent.InputHidden)
                 .WithAutoRedirect(false)
                 .Load();
 
@@ -67,10 +68,10 @@ namespace Test
         }
 
         [TestMethod]
-        public void LoagPageNonFluent()
+        public async Task LoagPageNonFluent()
         {
             var http = new HttpRequest(true);
-            var ret = http.LoadPage("https://github.com/otavioalfenas/Scraping-Toolkit", null);
+            var ret = await http.LoadPageAsync("https://github.com/otavioalfenas/Scraping-Toolkit", null);
 
             Assert.IsTrue(ret.HtmlPage != string.Empty);
         }

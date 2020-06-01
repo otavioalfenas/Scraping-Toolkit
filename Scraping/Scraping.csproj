@@ -31,8 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack, Version=1.11.18.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.11.18\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.11.24.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.24\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -45,26 +45,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Business\HttpRequestFluent.cs" />
-    <Compile Include="Entity\ColumnGridTypes.cs" />
-    <Compile Include="Entity\ComboBoxItemType.cs" />
-    <Compile Include="Entity\ComboBoxTypes.cs" />
-    <Compile Include="Entity\ComponentList.cs" />
-    <Compile Include="Entity\ComponentTypesBase.cs" />
-    <Compile Include="Entity\Enums.cs" />
-    <Compile Include="Entity\GridTypes.cs" />
-    <Compile Include="Entity\HeadGridTypes.cs" />
-    <Compile Include="Entity\ImageTypes.cs" />
-    <Compile Include="Entity\InputCheckBoxTypes.cs" />
-    <Compile Include="Entity\InputTextTypes.cs" />
-    <Compile Include="Entity\LineGridTypes.cs" />
-    <Compile Include="Entity\LinkTypes.cs" />
-    <Compile Include="Entity\RequestHttpBase.cs" />
-    <Compile Include="Entity\RequestHttpEventArgs.cs" />
-    <Compile Include="Entity\ResponseHttp.cs" />
-    <Compile Include="Business\Extentions.cs" />
-    <Compile Include="Business\HttpRequest.cs" />
-    <Compile Include="Exceptions\CustomException.cs" />
+    <Compile Include="Web\Business\HttpRequestFluent.cs" />
+    <Compile Include="Web\Entity\ColumnGridTypes.cs" />
+    <Compile Include="Web\Entity\ComboBoxItemType.cs" />
+    <Compile Include="Web\Entity\ComboBoxTypes.cs" />
+    <Compile Include="Web\Entity\ComponentList.cs" />
+    <Compile Include="Web\Entity\ComponentTypesBase.cs" />
+    <Compile Include="Web\Entity\Enums.cs" />
+    <Compile Include="Web\Entity\GridTypes.cs" />
+    <Compile Include="Web\Entity\HeadGridTypes.cs" />
+    <Compile Include="Web\Entity\ImageTypes.cs" />
+    <Compile Include="Web\Entity\InputCheckBoxTypes.cs" />
+    <Compile Include="Web\Entity\InputTextTypes.cs" />
+    <Compile Include="Web\Entity\LineGridTypes.cs" />
+    <Compile Include="Web\Entity\LinkTypes.cs" />
+    <Compile Include="Web\Entity\RequestHttpBase.cs" />
+    <Compile Include="Web\Entity\RequestHttpEventArgs.cs" />
+    <Compile Include="Web\Entity\ResponseHttp.cs" />
+    <Compile Include="Web\Business\Extentions.cs" />
+    <Compile Include="Web\Business\HttpRequest.cs" />
+    <Compile Include="Web\Exceptions\CustomException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

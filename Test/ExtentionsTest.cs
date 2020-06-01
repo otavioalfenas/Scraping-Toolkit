@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Scraping;
-using static Scraping.Enums;
+using Scraping.Web;
+using static Scraping.Web.Enums;
 
 namespace Test
 {

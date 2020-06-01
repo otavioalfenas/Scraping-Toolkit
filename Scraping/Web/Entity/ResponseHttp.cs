@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 
-namespace Scraping
+namespace Scraping.Web
 {
     public class ResponseHttp
     {
