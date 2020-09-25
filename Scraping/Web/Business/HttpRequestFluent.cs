@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -168,6 +169,28 @@ namespace Scraping.Web
         public HttpRequestFluent WithReferer(string referer)
         {
             request.Referer = referer;
+            return this;
+        }
+
+        public HttpRequestFluent WithCookies(CookieCollection cookies)
+        {
+            request.AllCookies = cookies;
+            return this;
+        }
+
+        public HttpRequestFluent AddCookie(Cookie cookie)
+        {
+            request.AllCookies.Add(cookie);
+            return this;
+        }
+
+        public HttpRequestFluent AddCookie(string name, string value)
+        {
+            request.AllCookies.Add(new Cookie
+            {
+                Name = name,
+                Value = value
+            });
             return this;
         }
 
