@@ -257,6 +257,10 @@ namespace Scraping.Web
                     var id = grid.Attributes["id"]?.Value;
                     var name = grid.Attributes["name"]?.Value;
                     var linhas = htmlTable.DocumentNode.SelectNodes("//tbody/tr");
+                    if (linhas == null)
+                    {
+                        linhas = htmlTable.DocumentNode.SelectNodes("//tr");
+                    }
                     var heads = htmlTable.DocumentNode.SelectNodes("//thead/tr/th|td");
 
                     GridTypes gridTypes = new GridTypes();
