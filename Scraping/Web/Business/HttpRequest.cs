@@ -23,11 +23,11 @@ namespace Scraping.Web
             if (!sslIgnore)
                 return;
 
-            if(ServicePointManager.ServerCertificateValidationCallback==null)
+            if (ServicePointManager.ServerCertificateValidationCallback == null)
                 ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(ByPassAllCertificateStuff);
 
             ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
         }
         private static bool ByPassAllCertificateStuff(object sender, X509Certificate cert, X509Chain chain, SslPolicyErrors error)
         {
@@ -38,118 +38,118 @@ namespace Scraping.Web
         {
             responseHttp = new ResponseHttp();
             this.Url = url;
-       
-                try
-                {
-                    HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(Url);
-                    httpWebRequest.UserAgent = UserAgent;
-                    httpWebRequest.PreAuthenticate = PreAuthenticate;
-                    httpWebRequest.Accept = Accept;
-                    httpWebRequest.Timeout = TimeoutRequest;
-                    httpWebRequest.KeepAlive = KeepAlive;
 
-                    if (this.Parameters != null && this.Parameters.Length > 0)
-                        httpWebRequest.Method = "POST";
+            try
+            {
+                HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(Url);
+                httpWebRequest.UserAgent = UserAgent;
+                httpWebRequest.PreAuthenticate = PreAuthenticate;
+                httpWebRequest.Accept = Accept;
+                httpWebRequest.Timeout = TimeoutRequest;
+                httpWebRequest.KeepAlive = KeepAlive;
+
+                if (this.Parameters != null && this.Parameters.Length > 0)
+                    httpWebRequest.Method = "POST";
+                else
+                    httpWebRequest.Method = "GET";
+
+                httpWebRequest.Headers["Accept-Encoding"] = AcceptEncoding;
+                httpWebRequest.Headers["Accept-Language"] = AcceptLanguage;
+                httpWebRequest.Headers["UA-CPU"] = UACPU;
+                httpWebRequest.Headers["Cache-Control"] = CacheControl;
+
+                if (!string.IsNullOrEmpty(RequestedWith))
+                    httpWebRequest.Headers["x-requested-with"] = RequestedWith;
+
+                httpWebRequest.ContentLength = 0L;
+                httpWebRequest.AllowAutoRedirect = AutoRedirect;
+
+                if (Headers != null)
+                {
+                    foreach (KeyValuePair<string, string> header in Headers)
+                        httpWebRequest.Headers.Add(header.Key, header.Value);
+                }
+
+                if (Referer != null)
+                    httpWebRequest.Referer = Referer;
+                httpWebRequest.CookieContainer = new CookieContainer();
+
+                if (AllCookies.Count > 0)
+                {
+                    foreach (Cookie todosCookie in AllCookies)
+                        httpWebRequest.CookieContainer.Add(todosCookie);
+                }
+
+                if (Parameters != null && Parameters.Trim().Length > 0)
+                {
+                    byte[] bytes = EncodingPage.GetBytes(Parameters);
+                    httpWebRequest.Method = "POST";
+                    httpWebRequest.ContentType = ContentType;
+                    httpWebRequest.ContentLength = bytes.Length;
+                    using (Stream requestStream = httpWebRequest.GetRequestStream())
+                    {
+                        requestStream.Write(bytes, 0, bytes.Length);
+                        requestStream.Close();
+                    }
+                }
+
+                string html;
+                string responseHeader;
+                using (HttpWebResponse response = (HttpWebResponse)await httpWebRequest.GetResponseAsync())
+                {
+                    responseHttp.StatusCode = response.StatusCode;
+
+                    if (response.ContentType.StartsWith("image"))
+                    {
+                        using (Stream responseStream = response.GetResponseStream())
+                            html = string.Format("data:{0};base64,{1}", response.ContentType, Convert.ToBase64String(responseStream.ReadAllBytes()));
+                    }
                     else
-                        httpWebRequest.Method = "GET";
+                        html = GetResponseHtml(response);
 
-                    httpWebRequest.Headers["Accept-Encoding"] = AcceptEncoding;
-                    httpWebRequest.Headers["Accept-Language"] = AcceptLanguage;
-                    httpWebRequest.Headers["UA-CPU"] = UACPU;
-                    httpWebRequest.Headers["Cache-Control"] = CacheControl;
-
-                    if (!string.IsNullOrEmpty(RequestedWith))
-                        httpWebRequest.Headers["x-requested-with"] = RequestedWith;
-
-                    httpWebRequest.ContentLength = 0L;
-                    httpWebRequest.AllowAutoRedirect = AutoRedirect;
-
-                    if (Headers != null)
-                    {
-                        foreach (KeyValuePair<string, string> header in Headers)
-                            httpWebRequest.Headers.Add(header.Key, header.Value);
-                    }
-
-                    if (Referer != null)
-                        httpWebRequest.Referer = Referer;
-                    httpWebRequest.CookieContainer = new CookieContainer();
-
-                    if (AllCookies.Count > 0)
-                    {
-                        foreach (Cookie todosCookie in AllCookies)
-                            httpWebRequest.CookieContainer.Add(todosCookie);
-                    }
-
-                    if (Parameters != null && Parameters.Trim().Length > 0)
-                    {
-                        byte[] bytes = EncodingPage.GetBytes(Parameters);
-                        httpWebRequest.Method = "POST";
-                        httpWebRequest.ContentType = ContentType;
-                        httpWebRequest.ContentLength = bytes.Length;
-                        using (Stream requestStream = httpWebRequest.GetRequestStream())
-                        {
-                            requestStream.Write(bytes, 0, bytes.Length);
-                            requestStream.Close();
-                        }
-                    }
-
-                    string html;
-                    string responseHeader;
-                    using (HttpWebResponse response =(HttpWebResponse)await httpWebRequest.GetResponseAsync())
-                    {
-                        responseHttp.StatusCode = response.StatusCode;
-
-                        if (response.ContentType.StartsWith("image"))
-                        {
-                            using (Stream responseStream = response.GetResponseStream())
-                                html = string.Format("data:{0};base64,{1}", response.ContentType, Convert.ToBase64String(responseStream.ReadAllBytes()));
-                        }
-                        else
-                            html = GetResponseHtml(response);
-
-                        AddCookies(response.Cookies, responseHttp);
-                        AddInternalCookie(response, responseHttp);
-                        responseHeader = response.GetResponseHeader("Location");
-                        responseHttp.UrlLocation = responseHeader;
-                        responseHttp.Method = response.Method;
-                        responseHttp.Server = response.Server;
-                        responseHttp.HeadersAdded = this.Headers;
-                    }
-
-                    if (MaxRedirect > 0)
-                    {
-                        if (!string.IsNullOrEmpty(responseHeader) && Uri.IsWellFormedUriString(responseHeader, UriKind.Absolute))
-                        {
-                            MaxRedirect--;
-                            this.Referer = url;
-                            return await LoadPageAsync(responseHeader);
-                        }
-                    }
-                    responseHttp.HtmlPage = html;
-
-                    LoadTypes(html, responseHttp);
-
-                    OnLoad?.Invoke(this, new RequestHttpEventArgs(html, responseHttp));
-
-                    return responseHttp;
+                    AddCookies(response.Cookies, responseHttp);
+                    AddInternalCookie(response, responseHttp);
+                    responseHeader = response.GetResponseHeader("Location");
+                    responseHttp.UrlLocation = responseHeader;
+                    responseHttp.Method = response.Method;
+                    responseHttp.Server = response.Server;
+                    responseHttp.HeadersAdded = this.Headers;
                 }
-                catch (WebException ex)
+
+                if (MaxRedirect > 0)
                 {
-                    using (var stream = ex.Response.GetResponseStream())
+                    if (!string.IsNullOrEmpty(responseHeader) && Uri.IsWellFormedUriString(responseHeader, UriKind.Absolute))
                     {
-                        using (var reader = new StreamReader(stream))
-                        {
-                            responseHttp.HtmlPage = reader.ReadToEnd();
-                        }
+                        MaxRedirect--;
+                        this.Referer = url;
+                        return await LoadPageAsync(responseHeader);
                     }
-                    responseHttp.StatusCode = HttpStatusCode.InternalServerError;
                 }
-                //catch (Exception ex)
-                //{
-                //    return null;
-                //}
+                responseHttp.HtmlPage = html;
+
+                LoadTypes(html, responseHttp);
+
+                OnLoad?.Invoke(this, new RequestHttpEventArgs(html, responseHttp));
 
                 return responseHttp;
+            }
+            catch (WebException ex)
+            {
+                using (var stream = ex.Response.GetResponseStream())
+                {
+                    using (var reader = new StreamReader(stream))
+                    {
+                        responseHttp.HtmlPage = reader.ReadToEnd();
+                    }
+                }
+                responseHttp.StatusCode = HttpStatusCode.InternalServerError;
+            }
+            //catch (Exception ex)
+            //{
+            //    return null;
+            //}
+
+            return responseHttp;
         }
 
         private string GetResponseHtml(HttpWebResponse response)

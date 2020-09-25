@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Scraping.Web;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Test
@@ -23,7 +22,7 @@ namespace Test
         {
             var ret = new HttpRequestFluent(true)
                 .FromUrl("https://github.com/otavioalfenas/Scraping-Toolkit")
-                .TryGetComponents(Enums.TypeComponent.LinkButton| Enums.TypeComponent.InputHidden)
+                .TryGetComponents(Enums.TypeComponent.LinkButton | Enums.TypeComponent.InputHidden)
                 .Load();
 
             Assert.IsTrue(ret.Components.LinkButtons.Count > 0 && ret.Components.InputHidden.Count > 0);
@@ -40,7 +39,7 @@ namespace Test
             var itens = ret.HtmlPage.GetByClassNameEquals("edge-item-fix");
             var itens2 = ret.HtmlPage.GetByClassNameContains("edge-it");
 
-            Assert.IsTrue(itens.Count > 0 && itens2.Count>0);
+            Assert.IsTrue(itens.Count > 0 && itens2.Count > 0);
         }
 
         [TestMethod]

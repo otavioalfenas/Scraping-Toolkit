@@ -1,74 +1,18 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D9228A00-4602-4C28-97D2-D7DE76BB1380}</ProjectGuid>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Scraping</RootNamespace>
-    <AssemblyName>Scraping</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack, Version=1.11.18.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.11.18\lib\Net45\HtmlAgilityPack.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
+    <PackageReference Include="HtmlAgilityPack">
+      <Version>1.11.24</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Web\Business\HttpRequestFluent.cs" />
-    <Compile Include="Web\Entity\ColumnGridTypes.cs" />
-    <Compile Include="Web\Entity\ComboBoxItemType.cs" />
-    <Compile Include="Web\Entity\ComboBoxTypes.cs" />
-    <Compile Include="Web\Entity\ComponentList.cs" />
-    <Compile Include="Web\Entity\ComponentTypesBase.cs" />
-    <Compile Include="Web\Entity\Enums.cs" />
-    <Compile Include="Web\Entity\GridTypes.cs" />
-    <Compile Include="Web\Entity\HeadGridTypes.cs" />
-    <Compile Include="Web\Entity\ImageTypes.cs" />
-    <Compile Include="Web\Entity\InputCheckBoxTypes.cs" />
-    <Compile Include="Web\Entity\InputTextTypes.cs" />
-    <Compile Include="Web\Entity\LineGridTypes.cs" />
-    <Compile Include="Web\Entity\LinkTypes.cs" />
-    <Compile Include="Web\Entity\RequestHttpBase.cs" />
-    <Compile Include="Web\Entity\RequestHttpEventArgs.cs" />
-    <Compile Include="Web\Entity\ResponseHttp.cs" />
-    <Compile Include="Web\Business\Extentions.cs" />
-    <Compile Include="Web\Business\HttpRequest.cs" />
-    <Compile Include="Web\Exceptions\CustomException.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Remove="RequestHttp.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

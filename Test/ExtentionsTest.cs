@@ -1,7 +1,6 @@
-﻿using System;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Scraping.Web;
+using System.Linq;
 using static Scraping.Web.Enums;
 
 namespace Test
@@ -31,7 +30,7 @@ namespace Test
             var byClassEquals = ret.HtmlPage.GetByClassNameEquals("Box mb-3 Box--condensed");
             var images = byClassEquals.FirstOrDefault().GetAllComponents(TypeComponent.Image);
             var link = byClassEquals.FirstOrDefault().GetAllComponents(TypeComponent.LinkButton);
-            Assert.IsTrue(images.Images.Count>0 && link.LinkButtons.Count>0);
+            Assert.IsTrue(images.Images.Count > 0 && link.LinkButtons.Count > 0);
         }
     }
 }

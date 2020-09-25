@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Scraping.Web
+﻿namespace Scraping.Web
 {
-    public class ColumnGridTypes: ComponentTypesBase
+    public class ColumnGridTypes : ComponentTypesBase
     {
         public string Text { get; set; }
         public int? Position { get; set; }
-
     }
 }

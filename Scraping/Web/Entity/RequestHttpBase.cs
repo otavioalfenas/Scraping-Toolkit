@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
@@ -70,7 +69,7 @@ namespace Scraping.Web
             lock (SyncRoot)
                 ServicePointManager.DefaultConnectionLimit = 999;
         }
-        
+
         /// <summary>
         /// Diminui o tempo limite de conexao
         /// </summary>
@@ -172,7 +171,7 @@ namespace Scraping.Web
             if (ServicePointManager.ServerCertificateValidationCallback == null)
                 ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(BypassAllCertificateStuff);
 
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
         }
 
         /// <summary>

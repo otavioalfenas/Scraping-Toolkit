@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Scraping.Web
 {
@@ -24,6 +20,6 @@ namespace Scraping.Web
         public List<ComboBoxTypes> ComboBoxes { get; set; }
         public List<LinkTypes> LinkButtons { get; set; }
         public List<GridTypes> Grids { get; set; }
-        public List<ImageTypes  > Images { get; set; }
+        public List<ImageTypes> Images { get; set; }
     }
 }

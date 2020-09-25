@@ -259,10 +259,12 @@ namespace Scraping.Web
                     var linhas = htmlTable.DocumentNode.SelectNodes("//tbody/tr");
                     var heads = htmlTable.DocumentNode.SelectNodes("//thead/tr/th|td");
 
-                    GridTypes gridTypes = new GridTypes();
-                    gridTypes.Id = id;
-                    gridTypes.Class = classe;
-                    gridTypes.Name = name;
+                    GridTypes gridTypes = new GridTypes
+                    {
+                        Id = id,
+                        Class = classe,
+                        Name = name
+                    };
                     //cabecalho
                     if (heads != null)
                     {
@@ -281,9 +283,11 @@ namespace Scraping.Web
                             htmlColumns.LoadHtml(linhas[i].OuterHtml);
                             var classeLinha = linhas[i].Attributes["class"]?.Value;
                             var colunas = htmlColumns.DocumentNode.SelectNodes("//td");
-                            LineGridTypes lines = new LineGridTypes();
-                            lines.LineNumber = i;
-                            lines.Class = classeLinha;
+                            LineGridTypes lines = new LineGridTypes
+                            {
+                                LineNumber = i,
+                                Class = classeLinha
+                            };
                             for (int x = 0; x < colunas.Count; x++)
                             {
                                 var text = colunas[x].InnerText.Trim();
@@ -377,7 +381,7 @@ namespace Scraping.Web
             ComponentList components = new ComponentList();
             switch (component)
             {
-               
+
                 case TypeComponent.InputText:
                     components.InputTexts = html.ParseInputText();
                     return components;
@@ -450,10 +454,12 @@ namespace Scraping.Web
         /// <returns>NameValueCollection</returns>
         public static NameValueCollection LoadParametersASPNET(this string htmlPagina, string eventTarget)
         {
-            NameValueCollection nameValueCollection = new NameValueCollection();
-            nameValueCollection.Add("__EVENTTARGET", eventTarget);
-            nameValueCollection.Add("__EVENTARGUMENT", string.Empty);
-            nameValueCollection.Add("__VIEWSTATE", htmlPagina.LoadViewState());
+            NameValueCollection nameValueCollection = new NameValueCollection
+            {
+                { "__EVENTTARGET", eventTarget },
+                { "__EVENTARGUMENT", string.Empty },
+                { "__VIEWSTATE", htmlPagina.LoadViewState() }
+            };
             if (htmlPagina.Contains("__EVENTVALIDATION"))
                 nameValueCollection.Add("__EVENTVALIDATION", htmlPagina.LoadEventValidation());
             if (htmlPagina.Contains("__VIEWSTATEENCRYPTED"))

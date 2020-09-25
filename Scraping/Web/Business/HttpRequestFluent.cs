@@ -12,7 +12,7 @@ namespace Scraping.Web
     public class HttpRequestFluent
     {
         private HttpRequest request = new HttpRequest(false);
-        
+
         public event EventHandler<RequestHttpEventArgs> OnLoad
         {
             add { request.OnLoad += value; }
@@ -173,7 +173,7 @@ namespace Scraping.Web
 
         public ResponseHttp Load()
         {
-            lock(this.request.SyncRoot)
+            lock (this.request.SyncRoot)
             {
                 return this.LoadAsync().Result;
             }

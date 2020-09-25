@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Scraping.Web
+﻿namespace Scraping.Web
 {
-    public class ComponentTypesBase 
+    public class ComponentTypesBase
     {
         public string Id { get; set; }
         public string Name { get; set; }

@@ -17,6 +17,6 @@ namespace Scraping.Web
         public string Method { get; set; }
         public string Server { get; set; }
         public Dictionary<string, string> HeadersAdded = new Dictionary<string, string>();
-        public ComponentList Components { get; set;   }
+        public ComponentList Components { get; set; }
     }
 }
