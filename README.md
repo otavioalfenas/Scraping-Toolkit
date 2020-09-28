@@ -105,7 +105,9 @@ Here is a step-by-step guide on how to proceed to upload your update.
 1. Fork the Project;
 2. Create your Feature Branch (`git checkout -b branch/Example`);
 3. Commit your updates (`git commit -m 'Message of any updates that were made to the program'`);
-4. Send to your Branch (`git push origin branch/Exemple`);
+
+Request permission to send your branch.
+4. Send to your Branch (`git push --set-upstream origin Example`);
 5. Open a Pull Request;
 
 ## Licences
