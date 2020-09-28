@@ -103,8 +103,9 @@ Abaixo um passo a passo de como deve proceder para subir sua atualização:
 1. Fork the Project;
 2. Crie sua Feature Branch (`git checkout -b branch/Exemplo`);
 3. Commit suas alterações (`git commit -m 'Inserir mensagem da alteração efetuada'`);
-4. Envie para a sua Branch (`git push origin branch/Exemplo`);
-5. Abra um Pull Request;
+4. Solicite permissão para enviar sua branch.
+5. Envie para a sua Branch (`git push --set-upstream origin Example`);
+6. Abra um Pull Request;
 
 ## Licenças
 
