@@ -22,10 +22,20 @@ O Scraping-Toolkit é uma estrutura rápida de captura de informações de pagin
 
 ## Utilização
 
+.NET Framework
+
 Para instalar o componente você pode usar o comando Install ou acessar https://www.nuget.org/packages/Scraping/
 
 ```PowerShell
 Install-Package Scraping
+```
+
+.NET Core
+
+Para instalar o componente você pode usar o comando Install ou acessar https://www.nuget.org/packages/Scraping.Core/
+
+```PowerShell
+Install-Package Scraping.Core
 ```
 
 Para fazer utilizar o load você deve informar a url (FromUrl) e uma das possibilidade é deixar que a ferramenta tente identificar os componentes da tela.
