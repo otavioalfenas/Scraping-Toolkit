@@ -23,6 +23,7 @@ The Scrapping-Toolkit is a fast-based structure to capture information within we
 ## How to use
 
 .NET Framework
+
 To install the component you can use the "Install" command or access https://www.nuget.org/packages/Scraping/
 
 ```PowerShell
@@ -30,6 +31,7 @@ Install-Package Scraping
 ```
 
 .NET Core
+
 To install the component you can use the "Install" command or access https://www.nuget.org/packages/Scraping.Core/
 
 ```PowerShell
