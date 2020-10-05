@@ -16,7 +16,9 @@ O Scraping-Toolkit é uma estrutura rápida de captura de informações de pagin
 ## Pré-Requisitos
 [![HTML Agility Pack][agility-pack-shield]][agility-pack-url] ou superior
 
-[![Framework][framework-shield]][framework-url]
+[![Framework][framework-shield]][framework-url] ou superior
+
+[![Framework][framework-core-shield]][framework-core-url] ou superior
 
 ## Utilização
 
@@ -136,4 +138,7 @@ Edgard Yamashita - https://www.linkedin.com/in/eguilherme
 [agility-pack-shield]: https://img.shields.io/badge/HtmlAgilityPack-v1.11.18-blue
 [agility-pack-url]: https://www.nuget.org/packages/HtmlAgilityPack/1.11.18
 [framework-shield]: https://img.shields.io/badge/.net%20Framework-v4.6.1-green
+[framework-core-shield]: https://img.shields.io/badge/.net%20Core-v3.1-blue
 [framework-url]: https://www.microsoft.com/pt-BR/download/details.aspx?id=49982 
+[framework-core-url]: https://dotnet.microsoft.com/download/dotnet-core
+
