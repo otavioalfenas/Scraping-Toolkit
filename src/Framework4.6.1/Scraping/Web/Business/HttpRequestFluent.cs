@@ -198,7 +198,7 @@ namespace Scraping.Web
         {
             lock(this.request.SyncRoot)
             {
-                return this.LoadAsync().Result;
+                return request.LoadPage(request.Url);
             }
         }
 

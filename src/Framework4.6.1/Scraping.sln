@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.902
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{1A18F7B9-A9FB-461C-B647-4493C5C771E1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scraping", "Scraping\Scraping.csproj", "{D9228A00-4602-4C28-97D2-D7DE76BB1380}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testeScraping", "..\..\..\testeScraping\testeScraping\testeScraping.csproj", "{865933F8-54E4-41CA-94A5-81DA8769C938}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{D9228A00-4602-4C28-97D2-D7DE76BB1380}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9228A00-4602-4C28-97D2-D7DE76BB1380}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9228A00-4602-4C28-97D2-D7DE76BB1380}.Release|Any CPU.Build.0 = Release|Any CPU
+		{865933F8-54E4-41CA-94A5-81DA8769C938}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{865933F8-54E4-41CA-94A5-81DA8769C938}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{865933F8-54E4-41CA-94A5-81DA8769C938}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{865933F8-54E4-41CA-94A5-81DA8769C938}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
