@@ -50,6 +50,18 @@ public void LoadComponents()
 }
 ```
 
+or async method
+
+```C#
+public async void LoadComponents()
+{
+	var ret = await new HttpRequestFluent(true)
+		.FromUrl("https://github.com/otavioalfenas/Scraping-Toolkit")
+		.TryGetComponents(Scraping.Enums.TypeComponent.LinkButton| Scraping.Enums.TypeComponent.InputHidden)
+		.LoadAsync();
+}
+```
+
 Inside the tool, there are also many extensions that make the parse work easier.
 
 ```C#
