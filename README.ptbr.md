@@ -48,6 +48,17 @@ public void LoadComponents()
 		.Load();
 }
 ```
+ou utilizando método assíncrono
+
+```C#
+public async void LoadComponents()
+{
+	var ret = await new HttpRequestFluent(true)
+		.FromUrl("https://github.com/otavioalfenas/Scraping-Toolkit")
+		.TryGetComponents(Scraping.Enums.TypeComponent.LinkButton| Scraping.Enums.TypeComponent.InputHidden)
+		.LoadAsync();
+}
+```
 
 
 Dentro da ferramenta existe também diversas extensões que facilitam o trabalho do parse.
