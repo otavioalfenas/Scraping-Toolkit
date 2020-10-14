@@ -14,16 +14,28 @@
 The Scrapping-Toolkit is a fast-based structure to capture information within web pages, used to track websites and even extract or insert data on the web pages. It can be widely used to reach to any goal from data-mining to web site monitoring and automated tests.
 
 ## Prerequisites
-[![HTML Agility Pack][agility-pack-shield]][agility-pack-url] or superior
+[![HTML Agility Pack][agility-pack-shield]][agility-pack-url] or higher
 
-[![Framework][framework-shield]][framework-url]
+[![Framework][framework-shield]][framework-url] or higher
+
+[![Framework][framework-core-shield]][framework-core-url] or higher
 
 ## How to use
+
+.NET Framework
 
 To install the component you can use the "Install" command or access https://www.nuget.org/packages/Scraping/
 
 ```PowerShell
 Install-Package Scraping
+```
+
+.NET Core
+
+To install the component you can use the "Install" command or access https://www.nuget.org/packages/Scraping.Core/
+
+```PowerShell
+Install-Package Scraping.Core
 ```
 
 To make it use the "load", you must inform the url (FromUrl) and one usage possibility is to let the tool try to identify the screen components.
@@ -139,4 +151,6 @@ Edgard Yamashita - https://www.linkedin.com/in/eguilherme
 [agility-pack-shield]: https://img.shields.io/badge/HtmlAgilityPack-v1.11.18-blue
 [agility-pack-url]: https://www.nuget.org/packages/HtmlAgilityPack/1.11.18
 [framework-shield]: https://img.shields.io/badge/.net%20Framework-v4.6.1-green
+[framework-core-shield]: https://img.shields.io/badge/.net%20Core-v3.1-blue
 [framework-url]: https://www.microsoft.com/pt-BR/download/details.aspx?id=49982 
+[framework-core-url]: https://dotnet.microsoft.com/download/dotnet-core
