@@ -2,7 +2,7 @@
 <package >
     <metadata>
     <id>Scraping</id>
-    <version>3.2.0.0</version>
+    <version>3.0.0.3</version>
     <title>Scraping Toolkit</title>
     <authors>Otavio Alfenas;Leandro Klaiber</authors>
     <owners>Otavio Alfenas</owners>
@@ -15,8 +15,10 @@
 	<copyright>Copyright 2020</copyright>
     <tags>Scraping C# Crawler Toolkit Web Robot</tags>    
     <dependencies>
-        <dependency id="HtmlAgilityPack" version="1.11.18" />
-		<group targetFramework=".NETFramework4.6.2" />
+        
+		<group targetFramework=".NETFramework4.6.1">
+		<dependency id="HtmlAgilityPack" version="1.11.18" />
+		</group>
     </dependencies>
   </metadata>
 </package>

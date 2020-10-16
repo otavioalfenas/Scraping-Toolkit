@@ -102,9 +102,7 @@ namespace Scraping.Web
                 return responseHttp;
         }
 
-
-
-        internal ResponseHttp LoadPage(string url)
+        public ResponseHttp LoadPage(string url)
         {
             responseHttp = new ResponseHttp();
             this.Url = url;
@@ -257,6 +255,7 @@ namespace Scraping.Web
 
         public async Task<ResponseHttp> LoadPageAsync(string url, NameValueCollection parameter, string referer)
         {
+            this.Parameters = null;
             if (parameter != null)
             {
                 StringBuilder stringBuilder = new StringBuilder();
