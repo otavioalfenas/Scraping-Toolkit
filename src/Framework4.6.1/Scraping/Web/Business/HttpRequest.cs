@@ -23,7 +23,7 @@ namespace Scraping.Web
             if (!sslIgnore)
                 return;
 
-            if(ServicePointManager.ServerCertificateValidationCallback==null)
+            if (ServicePointManager.ServerCertificateValidationCallback == null)
                 ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(ByPassAllCertificateStuff);
 
             ServicePointManager.Expect100Continue = true;
@@ -38,68 +38,73 @@ namespace Scraping.Web
         {
             responseHttp = new ResponseHttp();
             this.Url = url;
-       
-                try
-                {
+
+            try
+            {
                 HttpWebRequest httpWebRequest = CreateRequest();
 
                 string html;
-                    string responseHeader;
-                    using (HttpWebResponse response =(HttpWebResponse)await httpWebRequest.GetResponseAsync())
-                    {
-                        responseHttp.StatusCode = response.StatusCode;
-
-                        if (response.ContentType.StartsWith("image"))
-                        {
-                            using (Stream responseStream = response.GetResponseStream())
-                                html = string.Format("data:{0};base64,{1}", response.ContentType, Convert.ToBase64String(responseStream.ReadAllBytes()));
-                        }
-                        else
-                            html = GetResponseHtml(response);
-
-                        AddCookies(response.Cookies, responseHttp);
-                        AddInternalCookie(response, responseHttp);
-                        responseHeader = response.GetResponseHeader("Location");
-                        responseHttp.UrlLocation = responseHeader;
-                        responseHttp.Method = response.Method;
-                        responseHttp.Server = response.Server;
-                        responseHttp.HeadersAdded = this.Headers;
-                    }
-
-                    if (MaxRedirect > 0)
-                    {
-                        if (!string.IsNullOrEmpty(responseHeader) && Uri.IsWellFormedUriString(responseHeader, UriKind.Absolute))
-                        {
-                            MaxRedirect--;
-                            this.Referer = url;
-                            return await LoadPageAsync(responseHeader);
-                        }
-                    }
-                    responseHttp.HtmlPage = html;
-
-                    LoadTypes(html, responseHttp);
-
-                    OnLoad?.Invoke(this, new RequestHttpEventArgs(html, responseHttp));
-
-                    return responseHttp;
-                }
-                catch (WebException ex)
+                string responseHeader;
+                using (HttpWebResponse response = (HttpWebResponse)await httpWebRequest.GetResponseAsync())
                 {
-                    using (var stream = ex.Response.GetResponseStream())
+                    responseHttp.StatusCode = response.StatusCode;
+
+                    if (response.ContentType.StartsWith("image"))
                     {
-                        using (var reader = new StreamReader(stream))
-                        {
-                            responseHttp.HtmlPage = reader.ReadToEnd();
-                        }
+                        using (Stream responseStream = response.GetResponseStream())
+                            html = string.Format("data:{0};base64,{1}", response.ContentType, Convert.ToBase64String(responseStream.ReadAllBytes()));
                     }
-                    responseHttp.StatusCode = HttpStatusCode.InternalServerError;
+                    else
+                        html = GetResponseHtml(response);
+
+                    AddCookies(response.Cookies, responseHttp);
+                    AddInternalCookie(response, responseHttp);
+                    if (AddHeaderDynamically)
+                    {
+                        AddInternalHeaders(response, responseHttp);
+                    }
+
+                    responseHeader = response.GetResponseHeader("Location");
+                    responseHttp.UrlLocation = responseHeader;
+                    responseHttp.Method = response.Method;
+                    responseHttp.Server = response.Server;
+                    responseHttp.HeadersAdded = this.Headers;
                 }
-                //catch (Exception ex)
-                //{
-                //    return null;
-                //}
+
+                if (MaxRedirect > 0)
+                {
+                    if (!string.IsNullOrEmpty(responseHeader) && Uri.IsWellFormedUriString(responseHeader, UriKind.Absolute))
+                    {
+                        MaxRedirect--;
+                        this.Referer = url;
+                        return await LoadPageAsync(responseHeader);
+                    }
+                }
+                responseHttp.HtmlPage = html;
+
+                LoadTypes(html, responseHttp);
+
+                OnLoad?.Invoke(this, new RequestHttpEventArgs(html, responseHttp));
 
                 return responseHttp;
+            }
+            catch (WebException ex)
+            {
+                using (var stream = ex.Response.GetResponseStream())
+                {
+                    using (var reader = new StreamReader(stream))
+                    {
+                        responseHttp.HtmlPage = reader.ReadToEnd();
+                    }
+                }
+                responseHttp.StatusCode = HttpStatusCode.InternalServerError;
+            }
+            //catch (Exception ex)
+            //{
+            //    return null;
+            //}
+
+            return responseHttp;
         }
 
         public ResponseHttp LoadPage(string url)
@@ -127,6 +132,12 @@ namespace Scraping.Web
 
                     AddCookies(response.Cookies, responseHttp);
                     AddInternalCookie(response, responseHttp);
+
+                    if (AddHeaderDynamically)
+                    {
+                        AddInternalHeaders(response, responseHttp);
+                    }
+
                     responseHeader = response.GetResponseHeader("Location");
                     responseHttp.UrlLocation = responseHeader;
                     responseHttp.Method = response.Method;
@@ -277,7 +288,6 @@ namespace Scraping.Web
                 return;
 
             HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
-
             doc.LoadHtml(html);
 
             if ((TypeComponent & Enums.TypeComponent.ComboBox) == Enums.TypeComponent.ComboBox)

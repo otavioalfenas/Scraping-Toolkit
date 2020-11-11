@@ -50,6 +50,8 @@ namespace Scraping.Web
 
         public string Parameters { get; set; }
 
+        public bool AddHeaderDynamically { get; set; } = true;
+
         public string Url { get; set; }
 
         /// <summary>
@@ -70,7 +72,7 @@ namespace Scraping.Web
             lock (SyncRoot)
                 ServicePointManager.DefaultConnectionLimit = 999;
         }
-        
+
         /// <summary>
         /// Diminui o tempo limite de conexao
         /// </summary>
@@ -131,6 +133,24 @@ namespace Scraping.Web
                 var cookie = new Cookie(name, str3, empty, domain);
                 this.AllCookies.Add(cookie);
                 responseHttp.CookiesAdded.Add(cookie);
+            }
+        }
+
+        /// <summary>
+        /// Adiciona os cookies do resposta na requisição
+        /// </summary>
+        /// <param name="httpRes">resposta</param>
+        /// <param name="responseHttp">requisição</param>
+        protected void AddInternalHeaders(HttpWebResponse httpRes, ResponseHttp responseHttp)
+        {
+            foreach (var item in httpRes.Headers)
+            {
+                string nameHeader = item.ToString();
+                if (nameHeader == "Set-Cookie" || nameHeader == "Connection" || nameHeader == "Content-Length"
+                    || nameHeader == "Date" || nameHeader == "Transfer-Encoding")
+                    continue;
+
+                AddHeader(nameHeader, httpRes.Headers[nameHeader]);
             }
         }
 
@@ -197,6 +217,13 @@ namespace Scraping.Web
         {
             if (this.Headers == null)
                 this.Headers = new Dictionary<string, string>();
+
+            if (name == "Content-Type")
+            {
+                this.ContentType = value;
+                return;
+            }
+
             if (this.Headers.ContainsKey(name))
                 this.Headers[name] = value;
             else

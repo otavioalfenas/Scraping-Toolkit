@@ -18,7 +18,6 @@ namespace Scraping.Web
             DataGrid = 5,
             LinkButton = 6,
             Image = 7
-
         }
     }
 }

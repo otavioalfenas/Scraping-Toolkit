@@ -31,8 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack, Version=1.11.18.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.11.18\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\..\..\..\TesteBBlend\packages\HtmlAgilityPack.1.11.18\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -62,7 +62,7 @@
     <Compile Include="Web\Entity\RequestHttpBase.cs" />
     <Compile Include="Web\Entity\RequestHttpEventArgs.cs" />
     <Compile Include="Web\Entity\ResponseHttp.cs" />
-    <Compile Include="Web\Business\Extentions.cs" />
+    <Compile Include="Web\Business\Extensions.cs" />
     <Compile Include="Web\Business\HttpRequest.cs" />
     <Compile Include="Web\Exceptions\CustomException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

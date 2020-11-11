@@ -10,7 +10,7 @@ using static Scraping.Web.Enums;
 
 namespace Scraping.Web
 {
-    public static class Extentions
+    public static class Extensions
     {
         /// <summary>
         /// Return bytes[] of stream
