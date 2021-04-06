@@ -56,9 +56,54 @@ namespace Scraping.Web
 
         public static string RemoveExtraWhitespace(this string str)
         {
-            if (string.IsNullOrEmpty(str))
-                return str;
-            return Regex.Replace(str, "\\s+", " ");
+            int len = str.Length,
+                index = 0,
+                i = 0;
+            var src = str.ToCharArray();
+            bool skip = false;
+            char ch;
+            for (; i < len; i++)
+            {
+                ch = src[i];
+                switch (ch)
+                {
+                    case '\u0020':
+                    case '\u00A0':
+                    case '\u1680':
+                    case '\u2000':
+                    case '\u2001':
+                    case '\u2002':
+                    case '\u2003':
+                    case '\u2004':
+                    case '\u2005':
+                    case '\u2006':
+                    case '\u2007':
+                    case '\u2008':
+                    case '\u2009':
+                    case '\u200A':
+                    case '\u202F':
+                    case '\u205F':
+                    case '\u3000':
+                    case '\u2028':
+                    case '\u2029':
+                    case '\u0009':
+                    case '\u000A':
+                    case '\u000B':
+                    case '\u000C':
+                    case '\u000D':
+                    case '\u0085':
+                        if (skip) continue;
+                        src[index++] = ch;
+                        skip = true;
+                        continue;
+                    default:
+                        skip = false;
+                        src[index++] = ch;
+                        continue;
+                }
+            }
+
+            return new string(src, 0, index);
         }
 
         public static string RemoveDiacritics(this string text)
@@ -288,7 +333,7 @@ namespace Scraping.Web
                             LineGridTypes lines = new LineGridTypes();
                             lines.LineNumber = i;
                             lines.Class = classeLinha;
-                            for (int x = 0; x < colunas.Count; x++)
+                            for (int x = 0; x < colunas?.Count; x++)
                             {
                                 var text = colunas[x].InnerText.Trim();
                                 lines.Columns.Add(new ColumnGridTypes() { Text = text });

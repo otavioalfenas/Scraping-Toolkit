@@ -31,6 +31,12 @@ namespace Scraping.Web
             return this;
         }
 
+        public HttpRequestFluent AddHeaderDynamically(bool addHeader)
+        {
+            request.AddHeaderDynamically = addHeader;
+            return this;
+        }
+
         public HttpRequestFluent WithPreAuthenticate(bool preAuthenticate)
         {
             request.PreAuthenticate = preAuthenticate;
@@ -191,6 +197,13 @@ namespace Scraping.Web
                 Name = name,
                 Value = value
             });
+            return this;
+        }
+
+        public HttpRequestFluent WithMethod(string method)
+        {
+            request.WithMethod(method);
+
             return this;
         }
 

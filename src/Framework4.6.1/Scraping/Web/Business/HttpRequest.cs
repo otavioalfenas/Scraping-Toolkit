@@ -195,6 +195,9 @@ namespace Scraping.Web
             else
                 httpWebRequest.Method = "GET";
 
+            if (!string.IsNullOrWhiteSpace(Method))
+                httpWebRequest.Method = Method;
+
             httpWebRequest.Headers["Accept-Encoding"] = AcceptEncoding;
             httpWebRequest.Headers["Accept-Language"] = AcceptLanguage;
             httpWebRequest.Headers["UA-CPU"] = UACPU;

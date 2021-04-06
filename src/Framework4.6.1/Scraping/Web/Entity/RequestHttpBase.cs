@@ -54,6 +54,8 @@ namespace Scraping.Web
 
         public string Url { get; set; }
 
+        public string Method { get; set; }
+
         /// <summary>
         /// Classe de requisição http
         /// </summary>
@@ -240,6 +242,16 @@ namespace Scraping.Web
                 this.Headers = new Dictionary<string, string>();
             if (this.Headers.ContainsKey(name))
                 this.Headers.Remove(name);
+        }
+
+        public void WithMethod(string method)
+        {
+            if (string.IsNullOrWhiteSpace(method))
+            {
+                return;
+            }
+
+            this.Method = method;
         }
 
         ~RequestHttpBase()
